@@ -3,12 +3,86 @@
  */
 package bitcamp.project3;
 
+import java.util.*;
+import bitcamp.project3.Command.BookManagementCommand;
+import bitcamp.project3.Command.BorrowManagementCommand;
+import bitcamp.project3.Command.NoticeCommand;
+import bitcamp.project3.Util.Prompt;
+import bitcamp.project3.Command.Command;
+import bitcamp.project3.Vo.Book;
+
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+
+    String[] menus = {"대출 관리", "도서 관리", "공지사항", "종료"};
+    Stack menuPath = new Stack();
+
+    Map<String, Command> commandMap = new HashMap<>();
+
+    public App(){
+        List<Book> bookList = new ArrayList<>();
+
+        commandMap.put("대출 관리", new BorrowManagementCommand());
+        commandMap.put("도서 관리", new BookManagementCommand());
+        commandMap.put("공지사항", new NoticeCommand());
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        new App().execute();
     }
+
+    void execute() {
+        menuPath.push("메인 >");
+
+        printMenu();
+    }
+
+    void printMenu() {
+        String boldAnsi = "\033[1m";
+        String redAnsi = "\033[31m";
+        String resetAnsi = "\033[0m";
+
+        String appTitle = "[도서 관리 프로그램]";
+        String line = "----------------------------------";
+
+        System.out.println(boldAnsi + line + resetAnsi);
+        System.out.println(boldAnsi + appTitle + resetAnsi);
+
+        for (int i = 0; i < menus.length; i++) {
+            if (menus[i].equals("종료")) {
+                System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), menus[i], resetAnsi);
+            } else {
+                System.out.printf("%d. %s\n", (i + 1), menus[i]);
+            }
+        }
+
+        System.out.println(boldAnsi + line + resetAnsi);
+    }
+
+    void processMenu(String menuTitle) {
+        Command command = commandMap.get(menuTitle);
+        if (command == null) {
+            System.out.printf("%s 메뉴의 명령을 처리할 수 없습니다.\n", menuTitle);
+            return;
+        }
+        command.execute();
+    }
+    private String getMenuPathTitle(Stack menuPath) {
+        StringBuilder strBuilder = new StringBuilder();
+        for (int i = 0; i < menuPath.size(); i++) {
+            if (strBuilder.length() > 0) {
+                strBuilder.append("/");
+            }
+            strBuilder.append(menuPath.get(i));
+        }
+        return strBuilder.toString();
+    }
+
+    private String getMenuTitle(int menuNo) {
+        return isValidateMenu(menuNo) ? menus[menuNo - 1] : null;
+    }
+    private boolean isValidateMenu(int menuNo) {
+        return menuNo >= 1 && menuNo <= menus.length;
+    }
+
 }
