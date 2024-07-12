@@ -4,6 +4,7 @@ import bitcamp.project3.Util.Prompt;
 import bitcamp.project3.Vo.Book;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,9 +132,12 @@ public class BorrowManagementCommand extends AbstractCommand {
     LocalDate today = LocalDate.now();
     for (Book book : bookList) {
       if (book.getDate() != null && book.getDate().isBefore(today)) {
-        System.out.printf("%d. %s\t %s\t 대출자: %s\t 반납일: %d년 %d월 %d일\n", book.getNo(),
-            book.getBookName(), book.getWriter(), book.getName(), book.getDate().getYear(),
-            book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
+        long overdueDays = ChronoUnit.DAYS.between(book.getDate(), today);
+        System.out.printf(
+            "\u001B[31m%d. %s\t %s\t 대출자: %s\t 반납일: %d년 %d월 %d일\t 연체일: %d일\u001B[0m\n",
+            book.getNo(), book.getBookName(), book.getWriter(), book.getName(),
+            book.getDate().getYear(), book.getDate().getMonthValue(),
+            book.getDate().getDayOfMonth(), overdueDays);
       }
     }
   }
@@ -162,11 +166,21 @@ public class BorrowManagementCommand extends AbstractCommand {
   // 대출 된 책 리스트 출력
   public void listBorrowedBooks() {
     System.out.println("대출된 책 목록입니다.");
+    LocalDate today = LocalDate.now();
     for (Book book : bookList) {
       if (book.getDate() != null) {
-        System.out.printf("%d. %s\t %s\t 반납일: %d년 %d월 %d일\n", book.getNo(), book.getBookName(),
-            book.getWriter(), book.getDate().getYear(), book.getDate().getMonthValue(),
-            book.getDate().getDayOfMonth());
+        if (book.getDate().isBefore(today)) {
+          long overdueDays = ChronoUnit.DAYS.between(book.getDate(), today);
+          System.out.printf(
+              "\u001B[31m%d. %s\t %s\t 대출자: %s\t 반납일: %d년 %d월 %d일\t 연체일: %d일\u001B[0m\n",
+              book.getNo(), book.getBookName(), book.getWriter(), book.getName(),
+              book.getDate().getYear(), book.getDate().getMonthValue(),
+              book.getDate().getDayOfMonth(), overdueDays);
+        } else {
+          System.out.printf("%d. %s\t %s\t 대출자: %s\t 반납일: %d년 %d월 %d일\n", book.getNo(),
+              book.getBookName(), book.getWriter(), book.getName(), book.getDate().getYear(),
+              book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
+        }
       }
     }
   }
