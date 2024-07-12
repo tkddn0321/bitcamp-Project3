@@ -66,9 +66,11 @@ public class BookManagementCommand extends AbstractCommand {
   }
 
   public void listBook() {
-    System.out.println("번호 도서명\t 저자명\t 반납일\t 대출자");
-    noRentalBook();
-    rentalBook();
+    System.out.println("번호 도서명\t 저자명\t 장르\t 내용\n");
+    for (Book book : bookList) {
+      System.out.printf("%d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
+              book.getGenre(), book.getContent());
+    }
   }
 
   public void updateBook() {
@@ -104,20 +106,6 @@ public class BookManagementCommand extends AbstractCommand {
 
     Book deleteBook = bookList.remove(index);
     System.out.printf("%s 책을 삭제했습니다.\n", deleteBook.getBookName());
-  }
-
-  void noRentalBook() {
-    for (Book book : bookList) {
-      System.out.printf("%d. %s\t %s\t\n", book.getNo(), book.getBookName(), book.getWriter());
-
-    }
-  }
-
-  void rentalBook() {
-    for (Book book : bookList) {
-      System.out.printf("%d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
-          book.getWriter(), book.getDate(), book.getName());
-    }
   }
 }
 

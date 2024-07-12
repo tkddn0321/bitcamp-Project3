@@ -1,7 +1,6 @@
 package bitcamp.project3.Vo;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Book {
@@ -14,18 +13,37 @@ public class Book {
     private LocalDate date;
     private String writer;
     private String name;
+    private String content;
+    private String genre;
+
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Book book = (Book) object;
-        return no == book.no && Objects.equals(bookName, book.bookName) && Objects.equals(bookIntro, book.bookIntro) && Objects.equals(date, book.date) && Objects.equals(writer, book.writer) && Objects.equals(name, book.name);
+        return no == book.no && Objects.equals(bookName, book.bookName) && Objects.equals(bookIntro, book.bookIntro) && Objects.equals(date, book.date) && Objects.equals(writer, book.writer) && Objects.equals(name, book.name) && Objects.equals(content, book.content) && Objects.equals(genre, book.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(no, bookName, bookIntro, date, writer, name);
+        return Objects.hash(no, bookName, bookIntro, date, writer, name, content, genre);
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getName() {
