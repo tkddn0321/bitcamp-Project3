@@ -28,13 +28,13 @@ public class BorrowManagementCommand extends AbstractCommand {
       case "도서 대출":
         this.borrowBook();
         break;
-      case "도서 목록":
-        //        this.listBook();
+      case "대출 목록":
+        this.listBorrowedBooks();
         break;
-      case "도서 변경":
+      case "도서 반납":
         //        this.updateBook();
         break;
-      case "도서 삭제":
+      case "대출 수정":
         //        this.deleteBook();
         break;
     }
@@ -46,7 +46,7 @@ public class BorrowManagementCommand extends AbstractCommand {
       System.out.println("대출할 수 있는 책이 없습니다.");
       return;
     }
-    
+
     listAvailableBooks();
 
     while (true) {
@@ -81,6 +81,7 @@ public class BorrowManagementCommand extends AbstractCommand {
     }
   }
 
+  // 대출 가능한 책 리스트 출력
   public void listAvailableBooks() {
     System.out.println("대출 가능한 책 목록입니다.");
     for (Book book : bookList) {
@@ -90,6 +91,18 @@ public class BorrowManagementCommand extends AbstractCommand {
     }
   }
 
+  public void listBorrowedBooks() {
+    System.out.println("대출된 책 목록입니다.");
+    for (Book book : bookList) {
+      if (book.getDate() != null) {
+        System.out.printf("%d. %s\t %s\t 반납일: %d년 %d월 %d일\n", book.getNo(), book.getBookName(),
+            book.getWriter(), book.getDate().getYear(), book.getDate().getMonthValue(),
+            book.getDate().getDayOfMonth());
+      }
+    }
+  }
+
+  //번호로 책 찾기
   private Book findBookByNo(int bookNo) {
     for (Book book : bookList) {
       if (book.getNo() == bookNo) {
