@@ -2,6 +2,7 @@ package bitcamp.project3;
 
 import bitcamp.project3.Vo.Book;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,28 @@ public class DummyData {
     book5.setGenre("프로그래밍");
     book5.setContent("나쁜 코드를 좋은 구조의 코드로 변환하는 가이드.");
     books.add(book5);
+
+    // 이미 대출된 책 (정상 반납일인 경우)
+    Book book6 = new Book();
+    book6.setNo(Book.getSeqNo());
+    book6.setBookName("테스트 주도 개발");
+    book6.setWriter("켄트 벡");
+    book6.setGenre("프로그래밍");
+    book6.setContent("테스트 주도 개발의 원리와 실천 방법에 대한 책.");
+    book6.setName("홍길동");
+    book6.setDate(LocalDate.now().plusDays(7)); // 반납일까지 7일 남음
+    books.add(book6);
+
+    // 이미 대출된 책 (연체된 경우)
+    Book book7 = new Book();
+    book7.setNo(Book.getSeqNo());
+    book7.setBookName("도메인 주도 설계");
+    book7.setWriter("에릭 에반스");
+    book7.setGenre("소프트웨어 디자인");
+    book7.setContent("복잡한 소프트웨어 프로젝트를 성공적으로 완성하기 위한 도메인 주도 설계 방법론.");
+    book7.setName("이몽룡");
+    book7.setDate(LocalDate.now().minusDays(3)); // 3일 연체됨
+    books.add(book7);
 
     return books;
   }

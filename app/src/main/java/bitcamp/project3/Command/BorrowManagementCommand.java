@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BorrowManagementCommand extends AbstractCommand {
 
-  String[] menus = {"도서 대출", "도서 반납", "대출 목록", "대출 수정"};
+  String[] menus = {"도서 대출", "도서 반납", "대출 목록", "연체 내역"};
   private List<Book> bookList;
 
   public BorrowManagementCommand(String menuTitle, List<Book> list) {
@@ -35,8 +35,8 @@ public class BorrowManagementCommand extends AbstractCommand {
       case "도서 반납":
         this.returnBook();
         break;
-      case "대출 수정":
-        //        this.deleteBook();
+      case "연체 내역":
+        this.listOverdueBooks();
         break;
     }
   }
@@ -45,6 +45,12 @@ public class BorrowManagementCommand extends AbstractCommand {
   public void borrowBook() {
     if (!hasAvailableBooks()) {
       System.out.println("대출할 수 있는 책이 없습니다.");
+      return;
+    }
+
+    String borrowerName = Prompt.input("대출하는 분의 이름을 입력하세요: ");
+    if (hasOverdueBooks(borrowerName)) {
+      System.out.println("연체된 책이 있어 더 이상 대출할 수 없습니다.");
       return;
     }
 
@@ -117,6 +123,30 @@ public class BorrowManagementCommand extends AbstractCommand {
         System.out.println("올바른 형식이 아닙니다.");
       }
     }
+  }
+
+  // 연체된 책 리스트 출력
+  public void listOverdueBooks() {
+    System.out.println("연체된 책 목록입니다.");
+    LocalDate today = LocalDate.now();
+    for (Book book : bookList) {
+      if (book.getDate() != null && book.getDate().isBefore(today)) {
+        System.out.printf("%d. %s\t %s\t 대출자: %s\t 반납일: %d년 %d월 %d일\n", book.getNo(),
+            book.getBookName(), book.getWriter(), book.getName(), book.getDate().getYear(),
+            book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
+      }
+    }
+  }
+
+  // 특정 사용자가 연체된 책이 있는지 확인
+  private boolean hasOverdueBooks(String borrowerName) {
+    LocalDate today = LocalDate.now();
+    for (Book book : bookList) {
+      if (borrowerName.equals(book.getName()) && book.getDate().isBefore(today)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // 대출 가능한 책 리스트 출력
