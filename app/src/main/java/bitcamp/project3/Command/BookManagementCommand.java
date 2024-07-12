@@ -5,19 +5,22 @@ import bitcamp.project3.Vo.Book;
 
 import java.util.List;
 
-public class BookManagementCommand implements Command {
+public class BookManagementCommand extends AbstractCommand {
 
   public List<Book> bookList;
   String[] menus = {"도서 등록", "도서 목록", "도서 변경", "도서 삭제"};
 
+  public BookManagementCommand(String menuTitle, List<Book> list) {
+    super(menuTitle);
+    this.bookList = list;
+  }
+
+  @Override
   public String[] getMenus() {
     return menus;
   }
 
-  public void execute() {
-
-  }
-
+  @Override
   protected void processMenu(String menuName) {
     System.out.printf("[%s]\n", menuName);
     switch (menuName) {

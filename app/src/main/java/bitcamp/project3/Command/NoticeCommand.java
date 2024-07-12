@@ -1,7 +1,9 @@
 package bitcamp.project3.Command;
 
-public class NoticeCommand implements Command{
-    public void execute(){
+import java.util.Stack;
 
-    }
+public class NoticeCommand implements Command {
+  public void execute(Stack<String> menuPath) {
+
+  }
 }
