@@ -33,7 +33,7 @@ public class App {
   }
 
   void execute() {
-    menuPath.push("메인 >");
+    menuPath.push("메인");
 
     printMenu();
 
