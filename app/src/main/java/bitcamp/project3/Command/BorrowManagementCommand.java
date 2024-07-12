@@ -26,7 +26,7 @@ public class BorrowManagementCommand extends AbstractCommand {
     System.out.printf("[%s]\n", menuName);
     switch (menuName) {
       case "도서 대출":
-        //        this.borrowBook();
+        this.borrowBook();
         break;
       case "도서 목록":
         //        this.listBook();
@@ -40,7 +40,7 @@ public class BorrowManagementCommand extends AbstractCommand {
     }
   }
 
-  public void BorrowBook() {
+  public void borrowBook() {
 
     while (true) {
       LocalDate date = LocalDate.now();

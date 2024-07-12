@@ -108,15 +108,15 @@ public class BookManagementCommand extends AbstractCommand {
 
   void noRentalBook() {
     for (Book book : bookList) {
-      System.out.printf("%d. %s\t %s\t", book.getNo(), book.getBookName(), book.getWriter());
+      System.out.printf("%d. %s\t %s\t\n", book.getNo(), book.getBookName(), book.getWriter());
 
     }
   }
 
   void rentalBook() {
     for (Book book : bookList) {
-      System.out.printf("%d. %s\t %s\t %s\t %s", book.getNo(), book.getBookName(), book.getWriter(),
-          book.getDate(), book.getName());
+      System.out.printf("%d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
+          book.getWriter(), book.getDate(), book.getName());
     }
   }
 }
