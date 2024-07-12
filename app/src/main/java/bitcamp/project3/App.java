@@ -10,7 +10,10 @@ import bitcamp.project3.Command.NoticeCommand;
 import bitcamp.project3.Util.Prompt;
 import bitcamp.project3.Vo.Book;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 
 public class App {
@@ -21,7 +24,8 @@ public class App {
   Map<String, Command> commandMap = new HashMap<>();
 
   public App() {
-    List<Book> bookList = new ArrayList<>();
+    //    List<Book> bookList = new ArrayList<>();
+    List<Book> bookList = DummyData.createDummyBooks();
 
     commandMap.put("대출 관리", new BorrowManagementCommand("대출 관리", bookList));
     commandMap.put("도서 관리", new BookManagementCommand("도서 관리", bookList));

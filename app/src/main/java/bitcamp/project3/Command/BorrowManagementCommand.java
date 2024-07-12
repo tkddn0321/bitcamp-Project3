@@ -46,7 +46,8 @@ public class BorrowManagementCommand extends AbstractCommand {
       System.out.println("대출할 수 있는 책이 없습니다.");
       return;
     }
-    // 대출 가능한 책만 List 뜨기
+    
+    listAvailableBooks();
 
     while (true) {
       int bookNo = Prompt.inputInt("대출하실 책 번호를 입력하세요.");
@@ -63,7 +64,6 @@ public class BorrowManagementCommand extends AbstractCommand {
             book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
       }
 
-      //bookList.add(book);
       while (true) {
         String answer = Prompt.input("더 대여하시겠습니까? (y/n): ");
         if (answer.equalsIgnoreCase("n")) {
@@ -78,6 +78,15 @@ public class BorrowManagementCommand extends AbstractCommand {
         }
       }
 
+    }
+  }
+
+  public void listAvailableBooks() {
+    System.out.println("대출 가능한 책 목록입니다.");
+    for (Book book : bookList) {
+      if (book.getDate() == null) {
+        System.out.printf("%d. %s\t %s\n", book.getNo(), book.getBookName(), book.getWriter());
+      }
     }
   }
 

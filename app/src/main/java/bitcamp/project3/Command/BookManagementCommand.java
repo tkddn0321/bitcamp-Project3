@@ -71,7 +71,7 @@ public class BookManagementCommand extends AbstractCommand {
     System.out.print("번호 도서명\t 저자명\t 장르\t 내용\n");
     for (Book book : bookList) {
       System.out.printf("  %d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
-              book.getWriter(), book.getGenre(), book.getContent());
+          book.getWriter(), book.getGenre(), book.getContent());
     }
   }
 
