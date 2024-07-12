@@ -46,6 +46,8 @@ public class BookManagementCommand extends AbstractCommand {
 
       book.setBookName(Prompt.input("등록하실 책 이름을 입력하세요 : "));
       book.setWriter(Prompt.input("책 저자를 입력하세요 : "));
+      book.setGenre(Prompt.input("책 장르를 입력하세요 : "));
+      book.setContent(Prompt.input("책 내용을 입력하세요 : "));
       book.setNo(Book.getSeqNo());
       bookList.add(book);
 
@@ -66,10 +68,10 @@ public class BookManagementCommand extends AbstractCommand {
   }
 
   public void listBook() {
-    System.out.println("번호 도서명\t 저자명\t 장르\t 내용\n");
+    System.out.print("번호 도서명\t 저자명\t 장르\t 내용\n");
     for (Book book : bookList) {
-      System.out.printf("%d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
-              book.getGenre(), book.getContent());
+      System.out.printf("  %d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
+              book.getWriter(), book.getGenre(), book.getContent());
     }
   }
 
@@ -79,7 +81,7 @@ public class BookManagementCommand extends AbstractCommand {
     if (bookNo == 0) {
       return;
     }
-    int index = bookList.indexOf(bookList.indexOf(bookNo));
+    int index = bookList.indexOf(new Book(bookNo));
     if (index == -1) {
       System.out.println("없는 책 번호입니다.");
       return;
@@ -89,6 +91,8 @@ public class BookManagementCommand extends AbstractCommand {
 
     book.setBookName(Prompt.input("변경하실 책 이름을 입력하세요 : "));
     book.setWriter(Prompt.input("변경하실 저자를 입력하세요 : "));
+    book.setGenre(Prompt.input("변경하실 장르를 입력하세요 : "));
+    book.setContent(Prompt.input("변경하실 내용을 입력하세요 : "));
     System.out.println("변경했습니다.");
   }
 
@@ -98,8 +102,8 @@ public class BookManagementCommand extends AbstractCommand {
     if (bookNo == 0) {
       return;
     }
-    int index = bookList.indexOf(new Book());
-    if (index == 1) {
+    int index = bookList.indexOf(new Book(bookNo));
+    if (index == -1) {
       System.out.println("없는 번호입니다.");
       return;
     }
