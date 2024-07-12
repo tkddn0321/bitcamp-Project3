@@ -8,12 +8,12 @@ import java.util.List;
 
 public class BorrowManagementCommand extends AbstractCommand {
 
-  public List<Book> borrowList;
   String[] menus = {"도서 대출", "도서 반납", "대출 목록", "대출 수정"};
+  private List<Book> bookList;
 
   public BorrowManagementCommand(String menuTitle, List<Book> list) {
     super(menuTitle);
-    this.borrowList = list;
+    this.bookList = list;
   }
 
   @Override
@@ -40,17 +40,29 @@ public class BorrowManagementCommand extends AbstractCommand {
     }
   }
 
+  // 도서 대출
   public void borrowBook() {
+    if (bookList.isEmpty()) {
+      System.out.println("대출할 수 있는 책이 없습니다.");
+      return;
+    }
+    // 대출 가능한 책만 List 뜨기
 
     while (true) {
-      LocalDate date = LocalDate.now();
-      Book book = new Book();
-      // List 뜨기
-      book.setNo(Prompt.inputInt("대출하실 책 번호를 입력하세요."));
-      book.setDate(date.plusDays(15));
+      int bookNo = Prompt.inputInt("대출하실 책 번호를 입력하세요.");
+      Book book = findBookByNo(bookNo);
 
-      System.out.printf("%d년 %d월 %d일이 반납일입니다.", book.getDate().getYear(),
-          book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
+      if (book == null) {
+        System.out.println("유효한 책 번호가 아닙니다.");
+      } else if (book.getDate() != null) {
+        System.out.println("이미 대출된 책입니다.");
+      } else {
+        LocalDate date = LocalDate.now();
+        book.setDate(date.plusDays(15));
+        System.out.printf("%d년 %d월 %d일이 반납일입니다.", book.getDate().getYear(),
+            book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
+      }
+
       //bookList.add(book);
       while (true) {
         String answer = Prompt.input("더 대여하시겠습니까? (y/n): ");
@@ -65,7 +77,17 @@ public class BorrowManagementCommand extends AbstractCommand {
           continue;
         }
       }
+
     }
+  }
+
+  private Book findBookByNo(int bookNo) {
+    for (Book book : bookList) {
+      if (book.getNo() == bookNo) {
+        return book;
+      }
+    }
+    return null;
   }
 }
 
