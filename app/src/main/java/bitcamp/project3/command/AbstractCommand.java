@@ -1,6 +1,6 @@
 package bitcamp.project3.command;
 
-import bitcamp.project3.util.Prompt;
+import bitcamp.util.Prompt;
 
 import java.util.Stack;
 

@@ -7,8 +7,8 @@ import bitcamp.project3.command.BookManagementCommand;
 import bitcamp.project3.command.BorrowManagementCommand;
 import bitcamp.project3.command.Command;
 import bitcamp.project3.command.NoticeCommand;
-import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
+import bitcamp.util.Prompt;
 
 import java.util.HashMap;
 import java.util.List;

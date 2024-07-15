@@ -1,7 +1,7 @@
 package bitcamp.project3.command;
 
-import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
+import bitcamp.util.Prompt;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -140,7 +140,7 @@ public class BorrowManagementCommand extends AbstractCommand {
     }
 
     while (true) {
-      int bookNo = Prompt.inputInt("연장하실 책 이름을 입력하세요: ");
+      int bookNo = Prompt.inputInt("연장하실 책 번호를 입력하세요: ");
       Book book = findBookByNo(bookNo);
 
       if (book == null || !borrowedBooks.contains(book)) {

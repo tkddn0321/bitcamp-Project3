@@ -1,7 +1,7 @@
 package bitcamp.project3.command;
 
-import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
+import bitcamp.util.Prompt;
 
 import java.util.List;
 
