@@ -8,23 +8,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BorrowManagementCommand extends AbstractCommand {
+public class BorrowManagementCommand implements Command {
 
-  String[] menus = {"도서 대출", "도서 반납", "대출 목록", "대출 연장", "연체 내역"};
   private List<Book> bookList;
 
-  public BorrowManagementCommand(String menuTitle, List<Book> list) {
-    super(menuTitle);
+  public BorrowManagementCommand(List<Book> list) {
     this.bookList = list;
   }
 
   @Override
-  public String[] getMenus() {
-    return menus;
-  }
-
-  @Override
-  protected void processMenu(String menuName) {
+  public void execute(String menuName) {
     System.out.printf("[%s]\n", menuName);
     switch (menuName) {
       case "도서 대출":
@@ -46,7 +39,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 도서 대출
-  public void borrowBook() {
+  private void borrowBook() {
     if (!hasAvailableBooks()) {
       System.out.println("대출할 수 있는 책이 없습니다.");
       return;
@@ -93,7 +86,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 도서 반납
-  public void returnBook() {
+  private void returnBook() {
     String borrowerName = Prompt.input("반납하는 분의 이름을 입력하세요: ");
     List<Book> borrowedBooks = listBorrowedBooksByName(borrowerName);
 
@@ -130,7 +123,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 대출 연장
-  public void extendBorrowing() {
+  private void extendBorrowing() {
     String borrowerName = Prompt.input("연장하는 분의 이름을 입력하세요: ");
     List<Book> borrowedBooks = listBorrowedBooksByName(borrowerName);
 
@@ -166,7 +159,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 연체된 책 리스트 출력
-  public void listOverdueBooks() {
+  private void listOverdueBooks() {
     System.out.println("연체된 책 목록입니다.");
     LocalDate today = LocalDate.now();
     for (Book book : bookList) {
@@ -193,7 +186,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 대출 가능한 책 리스트 출력
-  public void listAvailableBooks() {
+  private void listAvailableBooks() {
     System.out.println("대출 가능한 책 목록입니다.");
     for (Book book : bookList) {
       if (book.getDate() == null) {
@@ -203,7 +196,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 대출 된 책 리스트 출력
-  public void listBorrowedBooks() {
+  private void listBorrowedBooks() {
     System.out.println("대출된 책 목록입니다.");
     LocalDate today = LocalDate.now();
     for (Book book : bookList) {
@@ -235,7 +228,7 @@ public class BorrowManagementCommand extends AbstractCommand {
   }
 
   // 대출자의 이름으로 대출된 책 리스트 출력
-  public List<Book> listBorrowedBooksByName(String borrowerName) {
+  private List<Book> listBorrowedBooksByName(String borrowerName) {
     List<Book> borrowedBooks = new ArrayList<>();
     System.out.printf("'%s' 님이 대출한 책 목록입니다.\n", borrowerName);
     for (Book book : bookList) {

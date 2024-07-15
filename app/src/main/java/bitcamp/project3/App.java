@@ -3,33 +3,51 @@
  */
 package bitcamp.project3;
 
+import bitcamp.menu.MenuGroup;
+import bitcamp.menu.MenuItem;
 import bitcamp.project3.command.BookManagementCommand;
 import bitcamp.project3.command.BorrowManagementCommand;
-import bitcamp.project3.command.Command;
 import bitcamp.project3.command.NoticeCommand;
 import bitcamp.project3.vo.Book;
 import bitcamp.util.Prompt;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Stack;
 
 
 public class App {
 
-  String[] menus = {"대출 관리", "도서 관리", "공지사항", "종료"};
-  Stack menuPath = new Stack();
+  MenuGroup mainMenu = new MenuGroup("메인");
 
-  Map<String, Command> commandMap = new HashMap<>();
+  BookManagementCommand bookManagementCommand;
+  BorrowManagementCommand borrowManagementCommand;
+  NoticeCommand noticeCommand;
 
   public App() {
     //    List<Book> bookList = new ArrayList<>();
     List<Book> bookList = DummyData.createDummyBooks();
 
-    commandMap.put("대출 관리", new BorrowManagementCommand("대출 관리", bookList));
-    commandMap.put("도서 관리", new BookManagementCommand("도서 관리", bookList));
-    commandMap.put("공지사항", new NoticeCommand());
+    bookManagementCommand = new BookManagementCommand(bookList);
+    borrowManagementCommand = new BorrowManagementCommand(bookList);
+    noticeCommand = new NoticeCommand();
+
+    MenuGroup bookMenu = new MenuGroup("도서 관리");
+    bookMenu.add(new MenuItem("도서 등록", bookManagementCommand));
+    bookMenu.add(new MenuItem("도서 목록", bookManagementCommand));
+    bookMenu.add(new MenuItem("도서 변경", bookManagementCommand));
+    bookMenu.add(new MenuItem("도서 삭제", bookManagementCommand));
+    mainMenu.add(bookMenu);
+
+    MenuGroup borrowMenu = new MenuGroup("대출 관리");
+    borrowMenu.add(new MenuItem("도서 대출", borrowManagementCommand));
+    borrowMenu.add(new MenuItem("대출 목록", borrowManagementCommand));
+    borrowMenu.add(new MenuItem("도서 반납 ", borrowManagementCommand));
+    borrowMenu.add(new MenuItem("대출 연장", borrowManagementCommand));
+    borrowMenu.add(new MenuItem("연체 내역", borrowManagementCommand));
+    mainMenu.add(borrowMenu);
+
+    mainMenu.add(new MenuItem("공지 사항", noticeCommand));
+
+    mainMenu.setExitMenuTitle("종료");
   }
 
   public static void main(String[] args) {
@@ -37,87 +55,16 @@ public class App {
   }
 
   void execute() {
-    menuPath.push("메인");
-
-    printMenu();
-
-    String commnad;
-    while (true) {
-      try {
-        commnad = Prompt.input("%s>", getMenuPathTitle(menuPath));
-
-        if (commnad.equals("menu")) {
-          printMenu();
-
-        } else {
-          int menuNo = Integer.parseInt(commnad);
-          String menuTitle = getMenuTitle(menuNo);
-          if (menuTitle == null) {
-            System.out.println("유효한 메뉴 번호가 아닙니다.");
-          } else if (menuTitle.equals("종료")) {
-            break;
-          } else {
-            processMenu(menuTitle);
-          }
-        }
-      } catch (NumberFormatException ex) {
-        System.out.println("숫자로 메뉴 번호를 입력해주세요.");
-      }
+    String appTitle = "[도서 관리 프로그램]";
+    String line = "----------------------------------";
+    try {
+      mainMenu.execute();
+    } catch (Exception ex) {
+      System.out.println("실행 오류!");
     }
 
-    System.out.println("종료합니다");
+    System.out.println("종료합니다.");
 
     Prompt.close();
   }
-
-  void printMenu() {
-    String boldAnsi = "\033[1m";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
-
-    String appTitle = "[도서 관리 프로그램]";
-    String line = "----------------------------------";
-
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + appTitle + resetAnsi);
-
-    for (int i = 0; i < menus.length; i++) {
-      if (menus[i].equals("종료")) {
-        System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), menus[i], resetAnsi);
-      } else {
-        System.out.printf("%d. %s\n", (i + 1), menus[i]);
-      }
-    }
-
-    System.out.println(boldAnsi + line + resetAnsi);
-  }
-
-  void processMenu(String menuTitle) {
-    Command command = commandMap.get(menuTitle);
-    if (command == null) {
-      System.out.printf("%s 메뉴의 명령을 처리할 수 없습니다.\n", menuTitle);
-      return;
-    }
-    command.execute(menuPath);
-  }
-
-  private String getMenuPathTitle(Stack menuPath) {
-    StringBuilder strBuilder = new StringBuilder();
-    for (int i = 0; i < menuPath.size(); i++) {
-      if (strBuilder.length() > 0) {
-        strBuilder.append("/");
-      }
-      strBuilder.append(menuPath.get(i));
-    }
-    return strBuilder.toString();
-  }
-
-  private String getMenuTitle(int menuNo) {
-    return isValidateMenu(menuNo) ? menus[menuNo - 1] : null;
-  }
-
-  private boolean isValidateMenu(int menuNo) {
-    return menuNo >= 1 && menuNo <= menus.length;
-  }
-
 }
