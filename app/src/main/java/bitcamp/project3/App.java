@@ -30,6 +30,7 @@ public class App {
     ManagementShowListCommand showListCommand = new ManagementShowListCommand(bookList);
     bookMenu.add(new MenuItem("도서 등록", new ManagementAddCommand(bookList)));
     bookMenu.add(new MenuItem("도서 목록", new ManagementListCommand(bookList)));
+    bookMenu.add(new MenuItem("도서 조회", new ManagementViewCommand(bookList)));
     bookMenu.add(new MenuItem("도서 변경", new ManagementUpdateCommand(bookList, showListCommand)));
     bookMenu.add(new MenuItem("도서 삭제", new ManagementDeleteCommand(bookList, showListCommand)));
     mainMenu.add(bookMenu);
