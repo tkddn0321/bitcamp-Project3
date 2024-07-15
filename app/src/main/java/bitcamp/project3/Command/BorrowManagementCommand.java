@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BorrowManagementCommand extends AbstractCommand {
 
-  String[] menus = {"도서 대출", "도서 반납", "대출 목록", "연체 내역"};
+  String[] menus = {"도서 대출", "도서 반납", "대출 목록", "대출 연장", "연체 내역"};
   private List<Book> bookList;
 
   public BorrowManagementCommand(String menuTitle, List<Book> list) {
@@ -36,7 +36,7 @@ public class BorrowManagementCommand extends AbstractCommand {
       case "도서 반납":
         this.returnBook();
         break;
-      case "도서 연장":
+      case "대출 연장":
         this.extendBorrowing();
         break;
       case "연체 내역":
