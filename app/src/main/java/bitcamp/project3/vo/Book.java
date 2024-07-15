@@ -13,8 +13,26 @@ public class Book {
   private String writer;
   private String name;
   private String content;
-  private String genre;
+  private BookGenre genre;
 
+  public enum BookGenre {
+    HORROR("호러"),
+    COMEDY("코믹"),
+    ROMANCE("로맨스"),
+    PROGRAM("프로그램"),
+    MYSTERY("미스터리"),
+    SCIENCE("과학");
+
+    private final String GenreName;
+
+    BookGenre(String displayName) {
+      this.GenreName = displayName;
+    }
+
+    public String getGenreName() {
+      return GenreName;
+    }
+  }
 
   public Book() {
 
@@ -55,11 +73,11 @@ public class Book {
     this.content = content;
   }
 
-  public String getGenre() {
+  public BookGenre getGenre() {
     return genre;
   }
 
-  public void setGenre(String genre) {
+  public void setGenre(BookGenre genre) {
     this.genre = genre;
   }
 
