@@ -1,4 +1,4 @@
-package bitcamp.project3.Command;
+package bitcamp.project3.command;
 
 import java.util.Stack;
 

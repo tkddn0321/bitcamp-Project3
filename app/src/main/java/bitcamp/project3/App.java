@@ -3,12 +3,12 @@
  */
 package bitcamp.project3;
 
-import bitcamp.project3.Command.BookManagementCommand;
-import bitcamp.project3.Command.BorrowManagementCommand;
-import bitcamp.project3.Command.Command;
-import bitcamp.project3.Command.NoticeCommand;
-import bitcamp.project3.Util.Prompt;
-import bitcamp.project3.Vo.Book;
+import bitcamp.project3.command.BookManagementCommand;
+import bitcamp.project3.command.BorrowManagementCommand;
+import bitcamp.project3.command.Command;
+import bitcamp.project3.command.NoticeCommand;
+import bitcamp.project3.util.Prompt;
+import bitcamp.project3.vo.Book;
 
 import java.util.HashMap;
 import java.util.List;

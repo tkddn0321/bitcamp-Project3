@@ -1,7 +1,7 @@
-package bitcamp.project3.Command;
+package bitcamp.project3.command;
 
-import bitcamp.project3.Util.Prompt;
-import bitcamp.project3.Vo.Book;
+import bitcamp.project3.util.Prompt;
+import bitcamp.project3.vo.Book;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -129,7 +129,7 @@ public class BorrowManagementCommand extends AbstractCommand {
     }
   }
 
-  // 도서 연장
+  // 대출 연장
   public void extendBorrowing() {
     String borrowerName = Prompt.input("연장하는 분의 이름을 입력하세요: ");
     List<Book> borrowedBooks = listBorrowedBooksByName(borrowerName);
