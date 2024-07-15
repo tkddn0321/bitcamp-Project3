@@ -15,24 +15,6 @@ public class Book {
   private String content;
   private BookGenre genre;
 
-  public enum BookGenre {
-    HORROR("호러"),
-    COMEDY("코믹"),
-    ROMANCE("로맨스"),
-    PROGRAM("프로그램"),
-    MYSTERY("미스터리"),
-    SCIENCE("과학");
-
-    private final String GenreName;
-
-    BookGenre(String displayName) {
-      this.GenreName = displayName;
-    }
-
-    public String getGenreName() {
-      return GenreName;
-    }
-  }
 
   public Book() {
 
@@ -44,10 +26,6 @@ public class Book {
 
   public static int getSeqNo() {
     return ++seqNo;
-  }
-
-  public static void setSeqNo(int seqNo) {
-    Book.seqNo = seqNo;
   }
 
   @Override
@@ -119,5 +97,19 @@ public class Book {
 
   public void setDate(LocalDate date) {
     this.date = date;
+  }
+
+  public enum BookGenre {
+    HORROR("호러"), COMEDY("코믹"), ROMANCE("로맨스"), PROGRAM("프로그램"), MYSTERY("미스터리"), SCIENCE("과학");
+
+    private final String GenreName;
+
+    BookGenre(String displayName) {
+      this.GenreName = displayName;
+    }
+
+    public String getGenreName() {
+      return GenreName;
+    }
   }
 }
