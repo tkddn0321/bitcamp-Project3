@@ -100,7 +100,8 @@ public class Book {
   }
 
   public enum BookGenre {
-    HORROR("호러"), COMEDY("코믹"), ROMANCE("로맨스"), PROGRAM("프로그램"), MYSTERY("미스터리"), SCIENCE("과학");
+    HORROR("호러"), COMEDY("코믹"), ROMANCE("로맨스"), PROGRAM("프로그램"), MYSTERY("미스터리"), SCIENCE(
+        "과학"), FANTASY("판타지");
 
     private final String GenreName;
 
