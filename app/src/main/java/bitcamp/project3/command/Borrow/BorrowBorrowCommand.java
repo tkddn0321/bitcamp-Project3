@@ -43,7 +43,7 @@ public class BorrowBorrowCommand implements Command {
       } else if (book.getDate() != null) {
         System.out.println("이미 대출된 책입니다.");
       } else {
-        book.setName(Prompt.input("대출하는 분의 이름을 입력하세요."));
+        book.setName(borrowerName);
         LocalDate date = LocalDate.now();
         book.setDate(date.plusDays(15));
         System.out.printf("%d년 %d월 %d일이 반납일입니다.", book.getDate().getYear(),
