@@ -70,7 +70,7 @@ public class MenuGroup extends AbstractMenu {
     for (Menu menu : children) {
       System.out.printf("%d. %s\n", i++, menu.getTitle());
     }
-    System.out.printf("0. %s%s%s\n", redAnsi, exitMenuTitle, resetAnsi);
+    System.out.printf("%s0. %s%s\n", redAnsi, exitMenuTitle, resetAnsi);
   }
 
   private String getMenuPathTitle() {

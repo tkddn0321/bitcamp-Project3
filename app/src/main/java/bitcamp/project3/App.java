@@ -5,8 +5,8 @@ package bitcamp.project3;
 
 import bitcamp.menu.MenuGroup;
 import bitcamp.menu.MenuItem;
-import bitcamp.project3.command.BookManagementCommand;
 import bitcamp.project3.command.Borrow.*;
+import bitcamp.project3.command.Management.*;
 import bitcamp.project3.command.NoticeCommand;
 import bitcamp.project3.vo.Book;
 import bitcamp.util.Prompt;
@@ -18,21 +18,20 @@ public class App {
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
-  BookManagementCommand bookManagementCommand;
   NoticeCommand noticeCommand;
 
   public App() {
     //    List<Book> bookList = new ArrayList<>();
     List<Book> bookList = DummyData.createDummyBooks();
 
-    bookManagementCommand = new BookManagementCommand(bookList);
     noticeCommand = new NoticeCommand();
 
     MenuGroup bookMenu = new MenuGroup("도서 관리");
-    bookMenu.add(new MenuItem("도서 등록", bookManagementCommand));
-    bookMenu.add(new MenuItem("도서 목록", bookManagementCommand));
-    bookMenu.add(new MenuItem("도서 변경", bookManagementCommand));
-    bookMenu.add(new MenuItem("도서 삭제", bookManagementCommand));
+    ManagementShowListCommand showListCommand = new ManagementShowListCommand(bookList);
+    bookMenu.add(new MenuItem("도서 등록", new ManagementAddCommand(bookList)));
+    bookMenu.add(new MenuItem("도서 목록", new ManagementListCommand(bookList)));
+    bookMenu.add(new MenuItem("도서 변경", new ManagementUpdateCommand(bookList, showListCommand)));
+    bookMenu.add(new MenuItem("도서 삭제", new ManagementDeleteCommand(bookList, showListCommand)));
     mainMenu.add(bookMenu);
 
     MenuGroup borrowMenu = new MenuGroup("대출 관리");
@@ -54,15 +53,8 @@ public class App {
   }
 
   void execute() {
-    String boldAnsi = "\033[1m";
-    String resetAnsi = "\033[0m";
-
     String appTitle = "[도서 관리 프로그램]";
     String line = "----------------------------------";
-
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + appTitle + resetAnsi);
-
     try {
       mainMenu.execute();
     } catch (Exception ex) {
