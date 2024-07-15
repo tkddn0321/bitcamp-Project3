@@ -46,7 +46,20 @@ public class BookManagementCommand extends AbstractCommand {
 
       book.setBookName(Prompt.input("등록하실 책 이름을 입력하세요 : "));
       book.setWriter(Prompt.input("책 저자를 입력하세요 : "));
-      book.setGenre(Prompt.input("책 장르를 입력하세요 : "));
+      System.out.println("책 장르를 선택하세요:");
+      for (int i = 0; i < Book.BookGenre.values().length; i++) {
+        System.out.printf("%d. %s\n", i + 1, Book.BookGenre.values()[i].getGenreName());
+      }
+
+      while (true) {
+        int genreSelect = Prompt.inputInt("장르 번호를 입력하세요: ");
+        if (genreSelect >= 1 && genreSelect <= Book.BookGenre.values().length) {
+          book.setGenre(Book.BookGenre.values()[genreSelect - 1]);
+          break;
+        } else {
+          System.out.println("올바른 장르 번호를 입력해주세요.");
+        }
+      }
       book.setContent(Prompt.input("책 내용을 입력하세요 : "));
       book.setNo(Book.getSeqNo());
       bookList.add(book);
@@ -70,8 +83,13 @@ public class BookManagementCommand extends AbstractCommand {
   public void listBook() {
     System.out.print("번호 도서명\t 저자명\t 장르\t 내용\n");
     for (Book book : bookList) {
-      System.out.printf("  %d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
-          book.getWriter(), book.getGenre(), book.getContent());
+      if(book.getName() != null){
+        System.out.printf("\u001B[31m%d. %s\t %s\t %s\t %s\u001B[0m\n", book.getNo(), book.getBookName(),
+                book.getWriter(), book.getGenre().getGenreName(), book.getContent());
+      } else {
+        System.out.printf("%d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
+                book.getWriter(), book.getGenre().getGenreName(), book.getContent());
+      }
     }
   }
 
@@ -91,7 +109,20 @@ public class BookManagementCommand extends AbstractCommand {
 
     book.setBookName(Prompt.input("변경하실 책 이름을 입력하세요 : "));
     book.setWriter(Prompt.input("변경하실 저자를 입력하세요 : "));
-    book.setGenre(Prompt.input("변경하실 장르를 입력하세요 : "));
+    System.out.println("변경하실 책 장르를 선택하세요:");
+    for (int i = 0; i < Book.BookGenre.values().length; i++) {
+      System.out.printf("%d. %s\n", i + 1, Book.BookGenre.values()[i].getGenreName());
+    }
+
+    while (true) {
+      int genreSelect = Prompt.inputInt("장르 번호를 입력하세요: ");
+      if (genreSelect >= 1 && genreSelect <= Book.BookGenre.values().length) {
+        book.setGenre(Book.BookGenre.values()[genreSelect - 1]);
+        break;
+      } else {
+        System.out.println("올바른 장르 번호를 입력해주세요.");
+      }
+    }
     book.setContent(Prompt.input("변경하실 내용을 입력하세요 : "));
     System.out.println("변경했습니다.");
   }
