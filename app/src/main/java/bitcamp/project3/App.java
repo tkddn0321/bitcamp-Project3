@@ -6,7 +6,7 @@ package bitcamp.project3;
 import bitcamp.menu.MenuGroup;
 import bitcamp.menu.MenuItem;
 import bitcamp.project3.command.BookManagementCommand;
-import bitcamp.project3.command.BorrowManagementCommand;
+import bitcamp.project3.command.Borrow.*;
 import bitcamp.project3.command.NoticeCommand;
 import bitcamp.project3.vo.Book;
 import bitcamp.util.Prompt;
@@ -19,7 +19,6 @@ public class App {
   MenuGroup mainMenu = new MenuGroup("메인");
 
   BookManagementCommand bookManagementCommand;
-  BorrowManagementCommand borrowManagementCommand;
   NoticeCommand noticeCommand;
 
   public App() {
@@ -27,7 +26,6 @@ public class App {
     List<Book> bookList = DummyData.createDummyBooks();
 
     bookManagementCommand = new BookManagementCommand(bookList);
-    borrowManagementCommand = new BorrowManagementCommand(bookList);
     noticeCommand = new NoticeCommand();
 
     MenuGroup bookMenu = new MenuGroup("도서 관리");
@@ -38,11 +36,12 @@ public class App {
     mainMenu.add(bookMenu);
 
     MenuGroup borrowMenu = new MenuGroup("대출 관리");
-    borrowMenu.add(new MenuItem("도서 대출", borrowManagementCommand));
-    borrowMenu.add(new MenuItem("대출 목록", borrowManagementCommand));
-    borrowMenu.add(new MenuItem("도서 반납 ", borrowManagementCommand));
-    borrowMenu.add(new MenuItem("대출 연장", borrowManagementCommand));
-    borrowMenu.add(new MenuItem("연체 내역", borrowManagementCommand));
+    BorrowBookHandler bookHandler = new BorrowBookHandler(bookList);
+    borrowMenu.add(new MenuItem("도서 대출", new BorrowBorrowCommand(bookList, bookHandler)));
+    borrowMenu.add(new MenuItem("대출 목록", new BorrowListCommand(bookList)));
+    borrowMenu.add(new MenuItem("도서 반납 ", new BorrowReturnCommand(bookList, bookHandler)));
+    borrowMenu.add(new MenuItem("대출 연장", new BorrowExtendCommand(bookList, bookHandler)));
+    borrowMenu.add(new MenuItem("연체 내역", new BorrowListOverCommand(bookList)));
     mainMenu.add(borrowMenu);
 
     mainMenu.add(new MenuItem("공지 사항", noticeCommand));
