@@ -54,8 +54,15 @@ public class App {
   }
 
   void execute() {
+    String boldAnsi = "\033[1m";
+    String resetAnsi = "\033[0m";
+
     String appTitle = "[도서 관리 프로그램]";
     String line = "----------------------------------";
+
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(boldAnsi + appTitle + resetAnsi);
+
     try {
       mainMenu.execute();
     } catch (Exception ex) {

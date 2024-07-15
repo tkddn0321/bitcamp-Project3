@@ -19,6 +19,13 @@ public class MenuGroup extends AbstractMenu {
 
   @Override
   public void execute() {
+    String boldAnsi = "\033[1m";
+    String resetAnsi = "\033[0m";
+
+    String line = "----------------------------------";
+
+    System.out.println(boldAnsi + line + resetAnsi);
+
     menuPath.push(title);
 
     printMenus();
@@ -29,6 +36,7 @@ public class MenuGroup extends AbstractMenu {
         printMenus();
         continue;
       } else if (command.equals("0")) { // 이전 메뉴 선택
+        System.out.println("이전 메뉴 선택");
         menuPath.pop();
         return;
       }
@@ -54,12 +62,15 @@ public class MenuGroup extends AbstractMenu {
   }
 
   private void printMenus() {
+    String redAnsi = "\033[31m";
+    String resetAnsi = "\033[0m";
+    
     System.out.printf("[%s]\n", title);
     int i = 1;
     for (Menu menu : children) {
       System.out.printf("%d. %s\n", i++, menu.getTitle());
     }
-    System.out.printf("0. %s\n", exitMenuTitle);
+    System.out.printf("0. %s%s%s\n", redAnsi, exitMenuTitle, resetAnsi);
   }
 
   private String getMenuPathTitle() {
