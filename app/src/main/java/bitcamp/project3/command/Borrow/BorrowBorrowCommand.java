@@ -26,7 +26,7 @@ public class BorrowBorrowCommand implements Command {
       return;
     }
 
-    String borrowerName = Prompt.input("대출하는 분의 이름을 입력하세요(연체시 대출이 불가능합니다. : ");
+    String borrowerName = Prompt.input("대출하는 분의 이름을 입력하세요(연체시 대출이 불가능합니다.) : ");
     if (bookHandler.hasOverdueBooks(borrowerName)) {
       System.out.println("연체된 책이 있어 더 이상 대출할 수 없습니다.");
       return;
