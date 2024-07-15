@@ -33,7 +33,11 @@ public class BorrowExtendCommand implements Command {
 
       if (book == null || !borrowedBooks.contains(book)) {
         System.out.println("유효한 책 번호가 아닙니다.");
-      } else {
+      } else if (bookHandler.hasOverdueBooks(borrowerName)) {
+        System.out.println("연체된 책은 연장하실수 없습니다.");
+        return;
+      }
+      {
         book.setDate(book.getDate().plusDays(15));
         System.out.printf("%d년 %d월 %d일로 연장되었습니다.\n", book.getDate().getYear(),
             book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
@@ -52,7 +56,6 @@ public class BorrowExtendCommand implements Command {
       }
     }
   }
-
 }
 
 
