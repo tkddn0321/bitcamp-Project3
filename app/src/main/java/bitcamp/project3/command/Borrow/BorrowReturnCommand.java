@@ -38,6 +38,7 @@ public class BorrowReturnCommand implements Command {
         book.setName(null);
         book.setDate(null);
         System.out.println("책이 반납되었습니다.");
+        BorrowBookHandler.count--;
       }
 
       String answer = Prompt.input("더 반납하시겠습니까? (y/n): ");

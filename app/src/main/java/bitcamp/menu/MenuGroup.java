@@ -19,12 +19,7 @@ public class MenuGroup extends AbstractMenu {
 
   @Override
   public void execute() {
-    String boldAnsi = "\033[1m";
-    String resetAnsi = "\033[0m";
 
-    String line = "----------------------------------";
-
-    System.out.println(boldAnsi + line + resetAnsi);
 
     menuPath.push(title);
 
@@ -64,7 +59,12 @@ public class MenuGroup extends AbstractMenu {
   private void printMenus() {
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";
-    
+    String boldAnsi = "\033[1m";
+    String line = "----------------------------------";
+
+    System.out.println(boldAnsi + line + resetAnsi);
+
+
     System.out.printf("[%s]\n", title);
     int i = 1;
     for (Menu menu : children) {

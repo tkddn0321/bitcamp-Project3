@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BorrowBookHandler {
 
+  public static int count = 0;
   private List<Book> bookList;
 
   public BorrowBookHandler(List<Book> bookList) {

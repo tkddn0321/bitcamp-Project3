@@ -48,6 +48,7 @@ public class BorrowBorrowCommand implements Command {
         book.setDate(date.plusDays(15));
         System.out.printf("%d년 %d월 %d일이 반납일입니다.", book.getDate().getYear(),
             book.getDate().getMonthValue(), book.getDate().getDayOfMonth());
+        BorrowBookHandler.count++;
       }
 
       while (true) {
