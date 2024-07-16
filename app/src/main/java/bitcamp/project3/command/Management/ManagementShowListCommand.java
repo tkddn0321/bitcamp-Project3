@@ -17,14 +17,14 @@ public class ManagementShowListCommand implements Command {
   public void execute(String menuName) {
     System.out.printf("[%s]\n", menuName);
 
-    System.out.print("번호 도서명\t 저자명\t 장르\t 내용\n");
+    System.out.print("번호 도서명\t 저자명\t 장르\n");
     for (Book book : bookList) {
       if(book.getName() != null){
-        System.out.printf("\u001B[31m%d. %s\t %s\t %s\t %s\u001B[0m\n", book.getNo(), book.getBookName(),
-                book.getWriter(), book.getGenre().getGenreName(), book.getContent());
+        System.out.printf("\u001B[31m%d. %s\t %s\t %s\u001B[0m\n", book.getNo(), book.getBookName(),
+                book.getWriter(), book.getGenre().getGenreName());
       } else {
-        System.out.printf("%d. %s\t %s\t %s\t %s\n", book.getNo(), book.getBookName(),
-                book.getWriter(), book.getGenre().getGenreName(), book.getContent());
+        System.out.printf("%d. %s\t %s\t %s\n", book.getNo(), book.getBookName(),
+                book.getWriter(), book.getGenre().getGenreName());
       }
     }
   }

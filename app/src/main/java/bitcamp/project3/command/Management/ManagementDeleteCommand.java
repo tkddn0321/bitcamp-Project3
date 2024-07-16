@@ -21,6 +21,7 @@ public class ManagementDeleteCommand implements Command {
     System.out.printf("[%s]\n", menuName);
 
     managementShowListCommand.execute(menuName);
+
     int bookNo = Prompt.inputInt("삭제하실 번호를 입력하세요 뒤로가기(0) : ");
     if (bookNo == 0) {
       return;
