@@ -1,12 +1,10 @@
 package bitcamp.project3.command.Management;
 
-import bitcamp.menu.MenuGroup;
 import bitcamp.project3.command.Command;
 import bitcamp.project3.vo.Book;
 import bitcamp.util.Prompt;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ManagementViewCommand implements Command {
 
@@ -77,10 +75,16 @@ public class ManagementViewCommand implements Command {
 
     Book.BookGenre selectGenre = Book.BookGenre.values()[genreNo - 1];
     boolean foundGenre = false;
+    System.out.printf("%-4s %-48s %-50s\n", "번호", "도서명", "저자");
 
     for (Book book : bookList) {
+      String bookName = ManagementBookHandler.adjustLength(book.getBookName(), 50);
+      String writer = ManagementBookHandler.adjustLength(book.getWriter(), 50);
+
+      String formattedBookInfo = String.format("%d. %s %s\n", book.getNo(), bookName, writer);
+
       if (book.getGenre().equals(selectGenre)) {
-        System.out.printf("%d. 도서명 : %s\t 저자 : %s\n", book.getNo(), book.getBookName(), book.getWriter());
+        System.out.printf("%s", formattedBookInfo);
         foundGenre = true;
       }
     }
@@ -88,7 +92,8 @@ public class ManagementViewCommand implements Command {
     if (!foundGenre) {
       System.out.println("조회하신 장르의 책은 없습니다.");
     }
-    System.out.println("-------------------------");
+    System.out.println(
+        "-------------------------------------------------------------------------------------------------------------------------------\n");
   }
 }
 

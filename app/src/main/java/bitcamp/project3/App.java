@@ -27,7 +27,7 @@ public class App {
     noticeCommand = new NoticeCommand();
 
     MenuGroup bookMenu = new MenuGroup("도서 관리");
-    ManagementShowListCommand showListCommand = new ManagementShowListCommand(bookList);
+    ManagementBookHandler showListCommand = new ManagementBookHandler(bookList);
     bookMenu.add(new MenuItem("도서 등록", new ManagementAddCommand(bookList)));
     bookMenu.add(new MenuItem("도서 목록", new ManagementListCommand(bookList)));
     bookMenu.add(new MenuItem("도서 조회", new ManagementViewCommand(bookList)));
@@ -62,7 +62,7 @@ public class App {
 
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
-    
+
     try {
       mainMenu.execute();
     } catch (Exception ex) {

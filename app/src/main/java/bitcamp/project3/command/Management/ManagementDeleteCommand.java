@@ -8,19 +8,19 @@ import java.util.List;
 
 public class ManagementDeleteCommand implements Command {
 
-  private ManagementShowListCommand managementShowListCommand;
   public List<Book> bookList;
+  private ManagementBookHandler managementBookHandler;
 
-  public ManagementDeleteCommand(List<Book> list, ManagementShowListCommand managementShowListCommand) {
+  public ManagementDeleteCommand(List<Book> list, ManagementBookHandler managementBookHandler) {
     this.bookList = list;
-    this.managementShowListCommand = managementShowListCommand;
+    this.managementBookHandler = managementBookHandler;
   }
 
   @Override
   public void execute(String menuName) {
     System.out.printf("[%s]\n", menuName);
 
-    managementShowListCommand.execute(menuName);
+    managementBookHandler.execute(menuName);
 
     int bookNo = Prompt.inputInt("삭제하실 번호를 입력하세요 뒤로가기(0) : ");
     if (bookNo == 0) {
