@@ -58,6 +58,8 @@ public class ManagementViewCommand implements Command {
     System.out.printf("책 이름 : %s\n", book.getBookName());
     System.out.printf("책 저자 : %s\n", book.getWriter());
     System.out.printf("책 장르 : %s\n", book.getGenre().getGenreName());
+    System.out.printf("책 내용 : %s\n", book.getContent());
+
     System.out.println("-------------------------");
   }
 
