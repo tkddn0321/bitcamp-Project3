@@ -78,7 +78,7 @@ public class ManagementViewCommand implements Command {
 
     for (Book book : bookList) {
       if (book.getGenre().equals(selectGenre)) {
-        System.out.printf("%d. %s\t %s\n", book.getNo(), book.getBookName(), book.getWriter());
+        System.out.printf("%d. 도서명 : %s\t 저자 : %s\n", book.getNo(), book.getBookName(), book.getWriter());
         foundGenre = true;
       }
     }
